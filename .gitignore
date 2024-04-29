@@ -1,7 +1,3 @@
-Assembly-CSharp.csproj
-Assembly-CSharp-Editor.csproj
-Assembly-CSharp-Editor-firstpass.csproj
-Assembly-CSharp-firstpass.csproj
 com.unity.package-manager-ui.Editor.csproj
 Unity.2D.Sprite.Editor.csproj
 Unity.2D.Tilemap.Editor.csproj

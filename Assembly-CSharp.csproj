@@ -321,8 +321,8 @@
     <Compile Include="Assets\LUA\NLua\GenerateEventAssembly\ILuaGeneratedType.cs" />
     <Compile Include="Assets\Scripts\Tes\ArrayRange.cs" />
     <Compile Include="Assets\Scripts\Ozone SCMAP Code\Lua\SaveLua_Platoon.cs" />
-    <Compile Include="Assets\Scripts\UI\Loading\SimpleLoadingWheel.cs" />
     <Compile Include="Assets\Scripts\HazardX SCMAP Code\Map.cs" />
+    <Compile Include="Assets\Scripts\UI\Loading\SimpleLoadingWheel.cs" />
     <Compile Include="Assets\Scripts\GFX\OzoneDecals\Scripts\OzoneDecalRenderer_OnPreRender.cs" />
     <Compile Include="Assets\LUA\NLua\Event\EventMasks.cs" />
     <Compile Include="Assets\LUA\KopiLua\lundump.cs" />

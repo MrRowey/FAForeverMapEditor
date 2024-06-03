@@ -1,0 +1,66 @@
+# Copyright (c) 2024 Josh 'Rowey' Row
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+name: Update Artifact Verion
+
+on: [workflow_dispatch]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Update version
+        id: update_version
+        run: |
+          VERSION_FILE="ProjectSettings/ProjectSettings.asset"
+          VERSION=$(grep -Po '(?<=bundleVersion: )\d+\.\d+\.\d+' $VERSION_FILE)
+          echo "Current version: $VERSION"
+
+          IFS='.' read -ra ADDR <<< "$VERSION"
+          MAJOR=${ADDR[0]}
+          MINOR=${ADDR[1]}
+          PATCH=${ADDR[2]}
+
+          # Increment patch version
+          PATCH=$((PATCH + 1))
+
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "New version: $NEW_VERSION"
+
+          # Update version in the file
+          sed -i "s/bundleVersion: $VERSION/bundleVersion: $NEW_VERSION/" $VERSION_FILE
+
+          # Set output for the new version
+          echo "::set-output name=new_version::$NEW_VERSION"
+
+      - name: Commit and push version update
+        run: |
+          git add ProjectSettings/ProjectSettings.asset
+          git commit -m "Bump version to ${{ steps.update_version.outputs.new_version }}"
+          git push

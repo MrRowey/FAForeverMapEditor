@@ -36,14 +36,6 @@ jobs:
         with:
           lfs: true
 
-      # Adding in high Resolutuon brushes by CaptinKultz repositoty:
-      # - https://github.com/CaptainKlutz/TerrainBrushes
-      - name: Checkout Terrain Brushes Repo
-        uses: actions/checkout@v4
-        with:
-          repository: CaptainKlutz/TerrainBrushes
-          path: TerrainBrushes
-
       - name: Cache Libary
         uses: actions/cache@v3
         with:

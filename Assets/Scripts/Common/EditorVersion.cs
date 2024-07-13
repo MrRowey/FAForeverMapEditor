@@ -9,7 +9,7 @@ using System;
 public class EditorVersion : MonoBehaviour
 {
 
-	public const string EditorBuildVersion = "v0.8.0";
+	public const string EditorBuildVersion = "v0.8";
 
 #if PRERELEASE
 	// Prerelease
@@ -39,7 +39,6 @@ public class EditorVersion : MonoBehaviour
 
 	void Start()
 	{
-		Debug.Log("Start!");
 		GetComponent<Text>().text = EditorBuildVersion + TagString;
 		if(SearchForNew)
 			StartCoroutine(FindLatest());
@@ -68,7 +67,6 @@ public class EditorVersion : MonoBehaviour
         if (Tags.Length > 0)
         {
             LatestTag = Tags[^1];
-            Debug.Log(LatestTag);
             FoundUrl = www.url;
 
             double Latest = Math.Round(BuildFloat(LatestTag), 3);
